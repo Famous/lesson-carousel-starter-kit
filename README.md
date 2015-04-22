@@ -1,11 +1,10 @@
 ##Carousel Lesson Starter Kit
 
-Screen shot at current step:
-
-![screenshot](./Screenshot.png)
-
 #Check out the Lesson Here:
-[http://learn-staging.famo.us/lessons/carousel/HelloFamous.html](http://learn-staging.famo.us/lessons/carousel/HelloFamous.html)
+[http://learn-staging.famo.us/lessons/carousel/Layout.html](http://learn-staging.famo.us/lessons/carousel/Layout.html)
+
+#Layout
+
 <span class="intro-graf">
 Let's look at how to organize and position elements in Famous in order to create a layout for our application.
 </span>
