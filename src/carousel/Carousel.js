@@ -11,10 +11,7 @@ function Carousel(selector, data) {
     // context. This is the 'root' node.
     this.root = this.context.addChild();
 
-    // The node's dispatch is a special object
-    // that we can decorate with visual components.
-
-    // Decorate the dispatch with an DOMElement
+    // Decorate the node with a DOMElement
     // component, and use the component to apply
     // content and styling
     this.el = new DOMElement(this.root);
