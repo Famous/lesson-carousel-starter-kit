@@ -196,5 +196,6 @@ Copy and paste the following code snippet just below your `Carousel` constructor
     // If not called, the elements won't get positioned. 
 
 Here, we reference the components through the storage objects we created in the previous steps. With this function, our nodes are sized and positioned. However, before any content will be visible, we will need to define child classes for the child elements `Pager`, `Arrow`, and `Dots`.
+
 =================
 All rights reserved. Famous Industries 2015
