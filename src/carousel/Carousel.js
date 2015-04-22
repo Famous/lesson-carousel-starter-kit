@@ -3,21 +3,24 @@ var Famous = FamousPlatform.core.Famous;
 var DOMElement = FamousPlatform.domRenderables.DOMElement;
 
 function Carousel(selector, data) {
-    // Create a Context instance. Contexts are
-    // the starting point for all Famous apps.
     this.context = Famous.createContext(selector);
-
-    // Add the first scene graph node to the
-    // context. This is the 'root' node.
     this.root = this.context.addChild();
 
-    // Decorate the node with a DOMElement
-    // component, and use the component to apply
-    // content and styling
-    this.el = new DOMElement(this.root);
-    this.el.setContent('Hello Famous!');
-    this.el.setProperty('font-size', '40px');
-    this.el.setProperty('color','blue');
+    // Keep reference to the page data, which is
+    // the images we'll display in our carousel
+    this.pageData = data.pageData;
+
+    this.arrows = {};
+    var backArrowNode = this.root.addChild();
+    var nextArrowNode = this.root.addChild();
+
+    this.pager = {};
+    var pagerNode = this.root.addChild();
+
+    this.dots = {};
+    var dotsNode = this.root.addChild();
+
+    
 }
 
 module.exports = Carousel;
