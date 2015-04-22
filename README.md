@@ -70,9 +70,6 @@ The context object forms the base of the Famous [scene graph](#) and handles att
 
 Pay attention to how the _dispatch_ object gets passed as an argument to to the HTMLElement component's constructor. This is how we _decorate_ our scene graph nodes with visual components.
 
-## Next steps
-
-Now that we understand how to put together a basic Famous scene, let's move on to architecting our more-complex carousel app.
 
 
 
