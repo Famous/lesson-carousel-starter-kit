@@ -4,7 +4,12 @@ Screen shot at current step:
 
 ![screenshot](./Screenshot.png)
 
+#Check out the Full Lesson Here:
 [http://learn-staging.famo.us/lessons/carousel/HelloFamous.html](http://learn-staging.famo.us/lessons/carousel/HelloFamous.html)
+
+=================
+
+##Hello Famous!
 
 <span class="intro-graf">
 Before we begin creating the carousel itself, let's display a basic "Hello World" message, just to establish the foundations for our application.
