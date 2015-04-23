@@ -10,7 +10,7 @@ Project files are found in:
 
     ./src/carousel
 
-The index.html file is found in:
+The _index.html_ file is found in:
 
     ./public
   
