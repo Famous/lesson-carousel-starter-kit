@@ -1,4 +1,4 @@
-##Carousel Lesson Starter Kit - Step 1 - "Hello Famous!"
+##Carousel Lesson Starter Kit: Step 1 - "Hello Famous!"
 
 Screen shot at current step:
 
