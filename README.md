@@ -1,9 +1,11 @@
-##Carousel Lesson Starter Kit
+##Carousel Lesson Starter Kit - Step 2: Adding Child Nodes
 
-#Check out the Lesson Here:
+##Check out the Full Lesson Here:
 [http://learn-staging.famo.us/lessons/carousel/Layout.html](http://learn-staging.famo.us/lessons/carousel/Layout.html)
 
-#Layout
+_Excerpt from Step 2: Adding Child Nodes_
+
+## Layout
 
 <span class="intro-graf">
 Let's look at how to organize and position elements in Famous in order to create a layout for our application.
@@ -196,6 +198,17 @@ Copy and paste the following code snippet just below your `Carousel` constructor
     // If not called, the elements won't get positioned. 
 
 Here, we reference the components through the storage objects we created in the previous steps. With this function, our nodes are sized and positioned. However, before any content will be visible, we will need to define child classes for the child elements `Pager`, `Arrow`, and `Dots`.
+
+<div class="sidenote--other">
+<p><strong>Modified files:</strong> <a href="https://github.famo.us/learn/lesson-carousel-steps/blob/step4/PositioningChildren/src/carousel/Carousel.js">Carousel.js</a></p>
+</div>
+
+<div class="sidenote">
+<p><strong>Section recap:</strong> <a href="https://github.famo.us/learn/lesson-carousel-steps/tree/step4/PositioningChildren">Code for this step</a></p>
+</div>
+
+<span class="cta">
+[Up next: Organizing code &raquo;](http://learn-staging.famo.us/lessons/carousel/OrganizingCode.html)
 
 =================
 All rights reserved. Famous Industries 2015
