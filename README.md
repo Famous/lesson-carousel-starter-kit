@@ -6,6 +6,8 @@ After cloning the repo:
     npm run start-dev
 
 
+![screenshot][./Screenshot.png]
+
 Project files are found in:
 
     ./src/carousel
