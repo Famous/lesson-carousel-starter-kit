@@ -9,7 +9,7 @@ Screen shot at current step:
 
 =================
 
-_Excerpt_
+_Excerpt from Step 1: Hello Famous!_
 
 ##Hello Famous!
 
