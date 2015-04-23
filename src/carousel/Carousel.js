@@ -17,7 +17,7 @@ function Carousel(selector, data) {
     this.el = new DOMElement(this.root);
     this.el.setContent('Hello Famous!');
     this.el.setProperty('font-size', '40px');
-    this.el.setProperty('color','blue');
+    this.el.setProperty('color','white');
 }
 
 module.exports = Carousel;
