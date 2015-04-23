@@ -8,11 +8,11 @@ After cloning the repo:
 
 Project files are found in:
 
-   ./src/carousel
+    ./src/carousel
 
 The index.html file is found in:
 
-  ./public
+   ./public
   
 
 
