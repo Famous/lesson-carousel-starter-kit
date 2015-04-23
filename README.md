@@ -1,13 +1,15 @@
-##Carousel Lesson Starter Kit
+##Carousel Lesson Starter Kit - Step 1 - "Hello Famous!"
 
 Screen shot at current step:
 
 ![screenshot](./Screenshot.png)
 
-#Check out the Full Lesson Here:
+## Check out the Full Lesson Here:
 [http://learn-staging.famo.us/lessons/carousel/HelloFamous.html](http://learn-staging.famo.us/lessons/carousel/HelloFamous.html)
 
 =================
+
+_Excerpt_
 
 ##Hello Famous!
 
@@ -71,7 +73,16 @@ The context object forms the base of the Famous [scene graph](#) and handles att
 Pay attention to how the _dispatch_ object gets passed as an argument to to the HTMLElement component's constructor. This is how we _decorate_ our scene graph nodes with visual components.
 
 
+<div class="sidenote--other">
+<p><strong>Modified files:</strong> <a href="https://github.famo.us/learn/lesson-carousel-steps/blob/step1/HelloFamous/src/carousel/main.js">main.js</a> | <a href="https://github.famo.us/learn/lesson-carousel-steps/blob/step1/HelloFamous/src/carousel/Carousel.js">Carousel.js</a></p>
+</div>
 
+<div class="sidenote">
+<p><strong>Section recap:</strong> <a href="https://github.famo.us/learn/lesson-carousel-steps/tree/step1/HelloFamous">Code for this step</a></p>
+</div>
+
+<span class="cta">
+[Up next: Architecture &raquo;](http://learn-staging.famo.us/lessons/carousel/Architecture.html)
 
 
 =================
