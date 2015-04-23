@@ -3,6 +3,8 @@
 ##Check out the Full Lesson Here:
 [http://learn-staging.famo.us/lessons/carousel/Layout.html](http://learn-staging.famo.us/lessons/carousel/Layout.html)
 
+=================
+
 _Excerpt from Step 2: Adding Child Nodes_
 
 ## Layout
