@@ -12,7 +12,7 @@ Project files are found in:
 
 The index.html file is found in:
 
-   ./public
+    ./public
   
 
 
