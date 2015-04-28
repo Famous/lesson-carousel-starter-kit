@@ -1,5 +1,8 @@
 ##Carousel Lesson Starter Kit
 
+### Follow along with the lesson here:
+[http://learn-staging.famo.us/lessons/carousel/](http://learn-staging.famo.us/lessons/carousel/)
+
 After cloning the repo:
 
     npm install
