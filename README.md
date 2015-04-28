@@ -16,7 +16,7 @@ Let's look at how to organize and position elements in Famous in order to create
 We'll use the parent class, `Carousel`, to initialize the sub-elements of the app. You can follow along in the [Carousel.js](https://github.famo.us/learn/lesson-carousel-starter-kit/blob/step1/HelloFamous/src/carousel/Carousel.js) file.
 
 <span class="art-insert">
-![AddingAreas](./assets/images/appareas.png)
+![AddingAreas](http://learn-staging.famo.us/lessons/carousel/assets/images/appareas.png)
 </span>
 
 The diagram above illustrates where within the screen each of the elements will reside. We can establish these element areas by adding [scene graph nodes](#) to the root node, and then styling them with [components](#).
