@@ -1,7 +1,7 @@
 {
-  "name": "carousel-starter-kit",
-  "version": "0.3.2",
-  "description": "starter kit for the carousel lesson",
+  "name": "famous-seed",
+  "version": "0.4.1",
+  "description": "seed for a browserified version of famous",
   "browser": "src/main.js",
   "scripts": {
     "build-dist": "scriptopt build -m bundle --gzip && scriptopt build -m standalone --sm famous --gzip",
@@ -14,7 +14,7 @@
     "watch": "npm run watch-main",
     "lint-eslint": "eslint src/",
     "lint-jscs": "jscs src/",
-    "lint": "npm run lint-eslint && npm run lint-jscs" 
+    "lint": "npm run lint-eslint && npm run lint-jscs"
   },
   "browserify": {
     "transform": [
@@ -37,7 +37,7 @@
     "brfs": "^1.1.1",
     "browserify": "^9.0.7",
     "cssify": "^0.7.0",
-    "famous": "git+ssh://git@github.famo.us/platform/famous#v0.3.1",
+    "famous": "git+ssh://git@github.famo.us/platform/famous#v0.4.2",
     "script-optimizer": "git+ssh://git@github.famo.us:build/script-optimizer.git"
   }
 }
