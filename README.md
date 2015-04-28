@@ -21,7 +21,7 @@ Throughout the app, we'll use the JavaScript "class" pattern to organize our cod
 
 ## A basic structure
 
-Copy and paste the code snippets below into the files `main.js` and `Carousel.js` (respectively), which are included in the [carousel starter kit](https://github.famo.us/learn/lesson-carousel-starter-kit) that you downloaded in the [getting started section](GettingStarted.html).
+Copy and paste the code snippets below into the files `main.js` and `Carousel.js` (respectively), which are included in the [carousel starter kit](https://github.famo.us/learn/lesson-carousel-starter-kit) that you downloaded in the [getting started section](http://learn-staging.famo.us/lessons/carousel/GettingStarted.html).
 
     /**
      * main.js
