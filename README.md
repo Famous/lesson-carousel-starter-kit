@@ -21,7 +21,7 @@ Throughout the app, we'll use the JavaScript "class" pattern to organize our cod
 
 ## A basic structure
 
-Copy and paste the code snippets below into the files `main.js` and `Carousel.js` (respectively), which are included in the [carousel starter kit](https://github.famo.us/learn/lesson-carousel-steps/tree/master) that you downloaded in the [getting started section](GettingStarted.html).
+Copy and paste the code snippets below into the files `main.js` and `Carousel.js` (respectively), which are included in the [carousel starter kit](https://github.famo.us/learn/lesson-carousel-starter-kit) that you downloaded in the [getting started section](GettingStarted.html).
 
     /**
      * main.js
@@ -37,52 +37,54 @@ Copy and paste the code snippets below into the files `main.js` and `Carousel.js
      * Carousel.js
      */
 
-    var Context = require('famous-core').Context;
-    var HTMLElement = require('famous-dom-renderables').HTMLElement;
+    var FamousPlatform = require('famous');
+    var Famous = FamousPlatform.core.Famous;
+    var DOMElement = FamousPlatform.domRenderables.DOMElement;
 
     function Carousel(selector, data) {
         // Create a Context instance. Contexts are
         // the starting point for all Famous apps.
-        this.context = new Context(selector);
+        this.context = Famous.createContext(selector);
 
         // Add the first scene graph node to the
         // context. This is the 'root' node.
         this.root = this.context.addChild();
 
-        // The node's dispatch is a special object
-        // that we can decorate with visual components.
-        var dispatch = this.root.getDispatch();
-
-        // Decorate the dispatch with an HTMLElement
+        // Decorate the node with a DOMElement
         // component, and use the component to apply
         // content and styling
-        this.el = new HTMLElement(dispatch);
-        this.el.content('Hello Famous!');
-        this.el.property('font-size', '40px');
-        this.el.property('color','white');
+        this.el = new DOMElement(this.root);
+        this.el.setContent('Hello Famous!');
+        this.el.setProperty('font-size', '40px');
+        this.el.setProperty('color','white');
     }
 
     module.exports = Carousel;
 
+
 ## Explanation
 
-In the code above, note how the carousel constructor creates a new [context](#) object and passes it a _CSS selector_ for the specific DOM element (in this case, the `'body'`) that we want to mount our app to.
+In the code above, note how the carousel constructor calls `.createContext()` on the `Famous` component and passes it a _CSS selector_ for the specific DOM element (in this case, the `'body'`) that we want to mount our app to.
 
-The context object forms the base of the Famous [scene graph](#) and handles attaching our app to the DOM. Adding child nodes to the context -- extending the scene graph -- is the process by which we add visual elements to our app.
+The context object (returned from `.createContext`) forms the base of the Famous [scene graph](#) and handles attaching our app to the DOM. Adding child nodes to the context -- extending the scene graph -- is the process by which we add visual elements to our app.
 
-Pay attention to how the _dispatch_ object gets passed as an argument to to the HTMLElement component's constructor. This is how we _decorate_ our scene graph nodes with visual components.
+Pay attention to how the _root_ scene graph node gets passed as an argument to the HTMLElement component's constructor. This is how we _decorate_ our scene graph nodes with visual components.
 
+## Next steps
+
+Now that we understand how to put together a basic Famous scene, let's move on to architecting our more-complex carousel app.
 
 <div class="sidenote--other">
-<p><strong>Modified files:</strong> <a href="https://github.famo.us/learn/lesson-carousel-steps/blob/step1/HelloFamous/src/carousel/main.js">main.js</a> | <a href="https://github.famo.us/learn/lesson-carousel-steps/blob/step1/HelloFamous/src/carousel/Carousel.js">Carousel.js</a></p>
+<p><strong>Modified files:</strong> <a href="https://github.famo.us/learn/lesson-carousel-starter-kit/blob/step1/HelloFamous/src/carousel/main.js">main.js</a> | <a href="https://github.famo.us/learn/lesson-carousel-starter-kit/blob/step1/HelloFamous/src/carousel/Carousel.js">Carousel.js</a></p>
 </div>
 
 <div class="sidenote">
-<p><strong>Section recap:</strong> <a href="https://github.famo.us/learn/lesson-carousel-steps/tree/step1/HelloFamous">Code for this step</a></p>
+<p><strong>Section recap:</strong> <a href="https://github.famo.us/learn/lesson-carousel-starter-kit/tree/step1/HelloFamous">Code for this step</a></p>
 </div>
 
 <span class="cta">
 [Up next: Architecture &raquo;](http://learn-staging.famo.us/lessons/carousel/Architecture.html)
+</span>
 
 
 =================
