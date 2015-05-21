@@ -2,7 +2,7 @@
   "name": "carousel-starter-kit",
   "version": "0.3.2",
   "description": "starter kit for the carousel lesson",
-  "browser": "src/main.js",
+  "browser": "src/index.js",
   "scripts": {
     "build-dist": "scriptopt build -m bundle --gzip && scriptopt build -m standalone --sm famous --gzip",
     "build-main": "browserify src/index.js | uglifyjs > public/main.bundle.js",
