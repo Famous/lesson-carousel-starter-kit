@@ -2,11 +2,11 @@
   "name": "carousel-starter-kit",
   "version": "0.4.2",
   "description": "starter kit for the carousel lesson",
-  "browser": "src/main.js",
+  "browser": "src/index.js",
   "scripts": {
     "build-dist": "scriptopt build -m bundle --gzip && scriptopt build -m standalone --sm famous --gzip",
-    "build-main": "browserify src/main.js | uglifyjs > public/main.bundle.js",
-    "watch-main": "watchify src/main.js -o public/main.bundle.js -d -v",
+    "build-main": "browserify src/index.js | uglifyjs > public/main.bundle.js",
+    "watch-main": "watchify src/index.js -o public/main.bundle.js -d -v",
     "start": "npm run build && serve --compress public/ -p 1337",
     "start-dev": "npm run watch & serve public/ -p 1337",
     "test": "npm run lint -s && npm run build",
@@ -14,7 +14,7 @@
     "watch": "npm run watch-main",
     "lint-eslint": "eslint src/",
     "lint-jscs": "jscs src/",
-    "lint": "npm run lint-eslint && npm run lint-jscs" 
+    "lint": "npm run lint-eslint && npm run lint-jscs"
   },
   "browserify": {
     "transform": [
