@@ -26,6 +26,15 @@ function Dots(node, options) {
     // Highlight the first dot in the collection
     this.dots[0].select();
 
+    //add a component to keep dot layout updated
+    var resizeComponent = {
+        onSizeChange: function(size) {
+            //this will layout the dots whenever a resize occurs
+            this.layoutDots(size)
+            //size === [parent size, 20, parent size]
+        }.bind(this)
+    };
+    this.node.addComponent(resizeComponent);
 }
 
 // Evenly space out the dots
