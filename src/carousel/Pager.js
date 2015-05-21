@@ -17,7 +17,6 @@ function Pager (node, options) {
     this.currentIndex = 0;
     this.threshold = 4000;
     this.pageWidth = 0;
-    this.pages = _createPages.call(this, node, options.pageData);
 
     var resizeComponent = {
         onSizeChange: function(size) {
@@ -35,6 +34,8 @@ function Pager (node, options) {
 
     this.threshold = 4000;
     this.force = new Vec3();
+
+    this.pages = _createPages.call(this, node, options.pageData);
 }
 
 Pager.prototype.defineWidth = function(size){
@@ -63,7 +64,7 @@ Pager.prototype.onUpdate = function(time) {
         page.node.setRotation(r[0], r[1], r[2], r[3]);
     }
 
-    Famous.requestUpdateOnNextTick(this);
+    FamousEngine.requestUpdateOnNextTick(this);
 };
 
 Pager.prototype.pageChange = function(oldIndex, newIndex) {
@@ -102,12 +103,12 @@ function _createPages(root, pageData) {
                     if (e.centerVelocity.x > this.threshold) {
                         if (this.draggedIndex === index && this.currentIndex === index) {
                             // Move index to left
-                            this.emitter.emit('pageChange', -1, 1);
+                            this.node.emit('pageChange', {direction: -1, amount: 1});
                         }
                     }
                     else if (e.centerVelocity.x < -this.threshold){
                         if (this.draggedIndex === index && this.currentIndex === index) {
-                            this.emitter.emit('pageChange', 1, 1);
+                            this.node.emit('pageChange', {direction: 1,  amount:1});
                         }
                     }
 

@@ -54,27 +54,33 @@ function _positionComponents() {
 
 function _bindEvents() {
     //listen for a 'pageChange' event and assign a callback
-    this.node.on('pageChange', function(direction, amount) {
-        amount = amount || 1;
+    this.root.addComponent({
+        onReceive: function(e, payload) {
+            if (e === 'pageChange') {
+                var direction = payload.direction;
+                var amount = payload.amount;
+                amount = amount || 1;
 
-        var oldIndex = this.currentIndex;
+                var oldIndex = this.currentIndex;
 
-        var i = oldIndex + (direction * amount);
-        var min = 0;
-        var max = this.pageData.length - 1;
+                var i = oldIndex + (direction * amount);
+                var min = 0;
+                var max = this.pageData.length - 1;
 
-        var newIndex = i > max ? max : i < min ? min : i;
+                var newIndex = i > max ? max : i < min ? min : i;
 
-        if (this.currentIndex !== newIndex) {
-            this.currentIndex = newIndex;
-            this.dots.pageChange(oldIndex, this.currentIndex);
-            this.pager.pageChange(oldIndex, this.currentIndex);
-        }
-    }.bind(this));
+                if (this.currentIndex !== newIndex) {
+                    this.currentIndex = newIndex;
+                    this.dots.pageChange(oldIndex, this.currentIndex);
+                    this.pager.pageChange(oldIndex, this.currentIndex);
+                }
+            }
+        }.bind(this)
+    });
 
     window.addEventListener('keydown', function(e) {
-        if (e.keyCode === 39) this.node.emit('pageChange', 1, 1);
-        if (e.keyCode === 37) this.node.emit('pageChange', -1, 1);
+        if (e.keyCode === 39) this.root.emit('pageChange', {direction: 1, amount: 1});
+        if (e.keyCode === 37) this.root.emit('pageChange', {direction: -1, amount: 1});
     }.bind(this));
 }
 
