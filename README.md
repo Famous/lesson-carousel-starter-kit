@@ -1,8 +1,3 @@
----
-layout: default
-title: Layout
----
-
 <span class="intro-graf">
 Let's look at how to organize and position elements in Famous in order to create a layout for our application.
 </span>
