@@ -6,7 +6,6 @@ function Pager (node, options) {
     this.currentIndex = 0;
     this.threshold = 4000;
     this.pageWidth = 0;
-    this.pages = _createPages.call(this, node, options.pageData);
 
     var resizeComponent = {
         onSizeChange: function(size) {
@@ -14,6 +13,8 @@ function Pager (node, options) {
         }.bind(this)
     };
     this.node.addComponent(resizeComponent);
+
+    this.pages = _createPages.call(this, node, options.pageData);
 }
 
 Pager.prototype.defineWidth = function(size){
