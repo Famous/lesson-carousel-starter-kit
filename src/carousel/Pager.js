@@ -16,7 +16,6 @@ function Pager (node, options) {
     this.currentIndex = 0;
     this.threshold = 4000;
     this.pageWidth = 0;
-    this.pages = _createPages.call(this, node, options.pageData);
 
     var resizeComponent = {
         onSizeChange: function(size) {
@@ -31,6 +30,8 @@ function Pager (node, options) {
 
     // .requestUpdate will call the .onUpdate method next frame, passing in the time stamp for that frame
     FamousEngine.requestUpdate(this);
+
+    this.pages = _createPages.call(this, node, options.pageData);
 }
 
 Pager.prototype.defineWidth = function(size){
