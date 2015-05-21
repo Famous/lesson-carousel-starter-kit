@@ -11,13 +11,6 @@ function Arrow(node, options) {
   this.el.setProperty('cursor', 'pointer');
   this.el.setProperty('textHighlight', 'none');
   this.el.setProperty('zIndex', '2');
-
-  function emitPageChange() {
-      this.node.emit('pageChange', this.direction);
-  }
-
-  this.gestures = new GestureHandler(node);
-  this.gestures.on('tap', emitPageChange);
 }
 
 module.exports = Arrow;
