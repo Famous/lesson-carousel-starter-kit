@@ -51,8 +51,8 @@ Dots.prototype.layoutDots = function(size) {
 
 // Updating the selected dots on change of current page.
 Dots.prototype.pageChange = function(oldIndex, newIndex) {
-    this.dots[oldIndex].dot.deselect();
-    this.dots[newIndex].dot.select();
+    this.dots[oldIndex].deselect();
+    this.dots[newIndex].select();
 }
 
 function Dot(node, options) {
