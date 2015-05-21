@@ -1,6 +1,7 @@
 var DOMElement = require('famous/dom-renderables/DOMElement');
-var PhysicsEngine = require('famous/physics/PhysicsEngine'); // To use later...
+var PhysicsEngine = require('famous/physics/PhysicsEngine');
 var FamousEngine = require('famous/core/FamousEngine');
+var GestureHandler = require('famous/components/GestureHandler');
 
 var physics = require('famous/physics');
 var math = require('famous/math');
@@ -31,11 +32,14 @@ function Pager (node, options) {
 
     // .requestUpdate will call the .onUpdate method next frame, passing in the time stamp for that frame
     FamousEngine.requestUpdate(this);
+
+    this.threshold = 4000;
+    this.force = new Vec3();
 }
 
 Pager.prototype.defineWidth = function(size){
   this.pageWidth = size[0];
-}
+};
 
 Pager.prototype.onUpdate = function(time) {
     this.simulation.update(time)
@@ -60,7 +64,22 @@ Pager.prototype.onUpdate = function(time) {
     }
 
     Famous.requestUpdateOnNextTick(this);
-}
+};
+
+Pager.prototype.pageChange = function(oldIndex, newIndex) {
+    if (oldIndex < newIndex) {
+        this.pages[oldIndex].anchor.set(-1, 0, 0);
+        this.pages[oldIndex].quaternion.fromEuler(0, Math.PI/2, 0);
+        this.pages[newIndex].anchor.set(0, 0, 0);
+        this.pages[newIndex].quaternion.set(1, 0, 0, 0);
+    } else {
+        this.pages[oldIndex].anchor.set(1, 0, 0);
+        this.pages[oldIndex].quaternion.fromEuler(0, -Math.PI/2, 0);
+        this.pages[newIndex].anchor.set(0, 0, 0);
+        this.pages[newIndex].quaternion.set(1, 0, 0, 0);
+    }
+    this.currentIndex = newIndex;
+};
 
 function _createPages(root, pageData) {
     var pages = [];
@@ -73,6 +92,29 @@ function _createPages(root, pageData) {
         imageNode.setAlign(0.5, 0.5);
         imageNode.setMountPoint(0.5, 0.5);
         imageNode.setOrigin(0.5, 0.5);
+
+        var gestureHandler = new GestureHandler(imageNode);
+            gestureHandler.on('drag', function(index, e) {
+                    this.force.set(e.centerDelta.x, 0, 0); // Add a force equal to change in X direction
+                    this.force.scale(20); // Scale the force up
+                    this.pages[index].box.applyForce(this.force); // Apply the force to the `Box` body
+
+                    if (e.centerVelocity.x > this.threshold) {
+                        if (this.draggedIndex === index && this.currentIndex === index) {
+                            // Move index to left
+                            this.emitter.emit('pageChange', -1, 1);
+                        }
+                    }
+                    else if (e.centerVelocity.x < -this.threshold){
+                        if (this.draggedIndex === index && this.currentIndex === index) {
+                            this.emitter.emit('pageChange', 1, 1);
+                        }
+                    }
+
+                    if (e.status === 'start') {
+                        this.draggedIndex = index;
+                    }
+                }.bind(this, i));
 
         var el = new DOMElement(imageNode);
         el.setProperty('backgroundImage', 'url(' + pageData[i] + ')');

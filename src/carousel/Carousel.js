@@ -22,6 +22,10 @@ function Carousel(selector, data) {
     this.dots = new Dots(this.root.addChild(), { numPages: this.pageData.length });
 
     _positionComponents.call(this);
+
+    this.currentIndex = 0;
+    _bindEvents.call(this);
+
 }
 
 function _positionComponents() {
@@ -46,6 +50,32 @@ function _positionComponents() {
 
     this.pager.node.setAlign(.5, .5, 0);
     this.pager.node.setMountPoint(.5, .5, 0);
+}
+
+function _bindEvents() {
+    //listen for a 'pageChange' event and assign a callback
+    this.node.on('pageChange', function(direction, amount) {
+        amount = amount || 1;
+
+        var oldIndex = this.currentIndex;
+
+        var i = oldIndex + (direction * amount);
+        var min = 0;
+        var max = this.pageData.length - 1;
+
+        var newIndex = i > max ? max : i < min ? min : i;
+
+        if (this.currentIndex !== newIndex) {
+            this.currentIndex = newIndex;
+            this.dots.pageChange(oldIndex, this.currentIndex);
+            this.pager.pageChange(oldIndex, this.currentIndex);
+        }
+    }.bind(this));
+
+    window.addEventListener('keydown', function(e) {
+        if (e.keyCode === 39) this.node.emit('pageChange', 1, 1);
+        if (e.keyCode === 37) this.node.emit('pageChange', -1, 1);
+    }.bind(this));
 }
 
 module.exports = Carousel;

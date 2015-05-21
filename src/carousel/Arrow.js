@@ -1,4 +1,5 @@
 var DOMElement = require('famous/dom-renderables/DOMElement');
+var GestureHandler = require('famous/components/GestureHandler');
 
 function Arrow(node, options) {
   this.node = node;
