@@ -1,8 +1,3 @@
----
-layout: default
-title: Arrows
----
-
 <span class="intro-graf">
 To handle rendering of the _next/previous_ navigation arrows for the carousel, we'll create an `Arrow` class. (This is one of the three modules that will be required by our `Carousel.js` file.)
 </span>
