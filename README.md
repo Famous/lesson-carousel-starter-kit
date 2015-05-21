@@ -1,219 +1,85 @@
-##Carousel Lesson Starter Kit - Step 2: Adding Child Nodes
-
-##Check out the Full Lesson Here:
-[http://learn-staging.famo.us/lessons/carousel/Layout.html](http://learn-staging.famo.us/lessons/carousel/Layout.html)
-
-=================
-
-_Excerpt from Step 2: Adding Child Nodes_
-
-## Layout
+---
+layout: default
+title: Pager
+---
 
 <span class="intro-graf">
-Let's look at how to organize and position elements in Famous in order to create a layout for our application.
+The `Pager` is the element that holds the display images. Architecturally, it will also hold most of the carousel's browsing logic.
 </span>
 
-We'll use the parent class, `Carousel`, to initialize the sub-elements of the app. You can follow along in the [Carousel.js](https://github.famo.us/learn/lesson-carousel-starter-kit/blob/step1/HelloFamous/src/carousel/Carousel.js) file.
+The images on display will be represented by a collection of `imageNodes`. To give our app a realistic feel, we will animate the `imageNode` elements using Famous' built-in physics engine.
 
-<span class="art-insert">
-![AddingAreas](http://learn-staging.famo.us/lessons/carousel/assets/images/appareas.png)
-</span>
-
-The diagram above illustrates where within the screen each of the elements will reside. We can establish these element areas by adding [scene graph nodes](#) to the root node, and then styling them with [components](#).
-
-## Adding child elements
-
-Since all elements in Famous are represented by [scene graph nodes](#), we need to add new nodes in order to establish new elements. To add a child node, simply call `.addChild()` on the scene graph node you wish to extend. (The returned object will be a new node that you can add even more children to, and so on.)
-
-Because we need to create four elements --- two `Arrow` elements, a `Dots` element, and a `Pager` element, we will need to call `.addChild()` four times on our root node `this.root`. In addition to our nodes, we'll also create empty _storage_ objects to hold the sub-elements' components of these child instances.
+Let's set up our `Pager` class and the `imageNodes` before adding the physics-based animation. Paste the code below into the file `Pager.js`, and then uncomment all references to `Pager` included in `Carousel.js`.
 
     /**
-     * Carousel.js (as of step 2)
+     * Pager.js
      */
-
-    var FamousPlatform = require('famous');
-    var Famous = FamousPlatform.core.Famous;
-    var DOMElement = FamousPlatform.domRenderables.DOMElement;
-
-    function Carousel(selector, data) {
-        this.context = Famous.createContext(selector);
-        this.root = this.context.addChild();
-
-        // Keep reference to the page data, which is
-        // the images we'll display in our carousel
-        this.pageData = data.pageData;
-
-        this.arrows = {};
-        var backArrowNode = this.root.addChild();
-        var nextArrowNode = this.root.addChild();
-
-        this.pager = {};
-        var pagerNode = this.root.addChild();
-
-        this.dots = {};
-        var dotsNode = this.root.addChild();
-
-        
-    }
-
-    module.exports = Carousel;
-
-<div class="sidenote">
-<p><strong>Modified files:</strong> <a href="hhttps://github.famo.us/learn/lesson-carousel-starter-kit/blob/step2/AddingChildNodes/src/carousel/Carousel.js">Carousel.js</a></p>
-</div>
-
-## Attaching components
-
-We recommend sizing, positioning, and styling elements from the parent element --- an approach we call _top-down_. Being consistent about where your app's positioning and sizing control comes from will give you a great advantage as it grows in complexity.
-
-Following this convention, we will add `Size`, `Position`, `Align`, and `MountPoint` components to the _storage_ objects we created within `Carousel` in the previous step. (Below, note the commented out lines and make sure to include them in your code; these will come into play later when we create our classes.)
-    
-    /**
-     * Carousel.js (as of step 3)
-     */
-
-    var FamousPlatform = require('famous');
-    var Famous = FamousPlatform.core.Famous;
-    var DOMElement = FamousPlatform.domRenderables.DOMElement;
-    var Size = FamousPlatform.components.Size;
-    var Position = FamousPlatform.components.Position;
-    var Align = FamousPlatform.components.Align;
-    var MountPoint = FamousPlatform.components.MountPoint;
-
-    // We'll uncommment these lines once we've built out
-    // the individual element classes.
-    //
-    // var Arrow = require('./Arrow.js');
-    // var Pager = require('./Pager.js');
-    // var Dots = require('./Dots.js');
+     var DOMElement = require('famous/dom-renderables/DOMElement');
+     var PhysicsEngine = require('famous/physics/PhysicsEngine'); // To use later...
 
 
-    function Carousel(selector, data) {
-        this.context = Famous.createContext(selector);
-        this.root = this.context.addChild();
-        this.pageData = data.pageData;
-        
-        // Note the commented-out lines below, which we will
-        // uncomment once we've built out the implementations.
+     function Pager (node, options) {
+         this.node = node;
+         this.currentIndex = 0;
+         this.threshold = 4000;
+         this.pageWidth = 0;
 
-        this.arrows = {};
-        var backArrowNode = this.root.addChild();
-        this.arrows.back = {
-            node: backArrowNode,
-            //childInstance: new Arrow(backArrowNode, { direction: -1}),
-            size: new Size(backArrowNode),
-            position: new Position(backArrowNode),
-            align: new Align(backArrowNode),
-            mountPoint: new MountPoint(backArrowNode)
-        };
+         this.pages = _createPages.call(this, node, options.pageData);
+     }
 
-        var nextArrowNode = this.root.addChild();
-        this.arrows.next = {
-            node: nextArrowNode,
-            //childInstance: new Arrow(nextArrowNode, { direction: 1}),
-            size: new Size(nextArrowNode),
-            position: new Position(nextArrowNode),
-            align: new Align(nextArrowNode),
-            mountPoint: new MountPoint(nextArrowNode)
-        };
-     
-        this.pager = {};
-        var pagerNode = this.root.addChild();
-        this.pager = {
-            node: pagerNode,
-            //childInstance: new Pager(pagerNode, { pageData: this.pageData }),
-            size: new Size(pagerNode),
-            position: new Position(pagerNode),
-            align: new Align(pagerNode),
-            mountPoint: new MountPoint(pagerNode)
-        };
+     Pager.prototype.defineWidth = function(size){
+       this.pageWidth = size[0];
+     }
 
-        this.dots = {};
-        var dotsNode = this.root.addChild();
-        this.dots = {
-            node: dotsNode,
-            //childInstance: new Dots(dotsNode, { numPages: this.pageData.length }),
-            size: new Size(dotsNode),
-            position: new Position(dotsNode),
-            align: new Align(dotsNode),
-            mountPoint: new MountPoint(dotsNode)
-        };
 
-        // We will add the implementation of this function
-        // in the section below. Once added, uncomment this.
-        //
-        //_positionComponents.call(this);
+     function _createPages(root, pageData) {
+         var pages = [];
 
-    }
+         for (var i = 0; i < pageData.length; i++) {
+             var imageNode = root.addChild();
 
-    module.exports = Carousel;
+             imageNode.setSizeMode(1,1,1)
+             imageNode.setAbsoluteSize(500, 500, 0);
+             imageNode.setAlign(0.5, 0.5);
+             imageNode.setMountPoint(0.5, 0.5);
+             imageNode.setOrigin(0.5, 0.5);
 
-Notice how we pass a scene graph node to each component's constructor, and then store these instances in the storage objects for use later.
+             var el = new DOMElement(imageNode);
+             el.setProperty('backgroundImage', 'url(' + pageData[i] + ')');
+             el.setProperty('background-repeat', 'no-repeat');
+             el.setProperty('background-size', 'cover');
+
+             pages.push(imageNode);
+         }
+
+         return pages;
+     }
+
+     module.exports = Pager;
+
+Notice how we use the external private function `_createPages` to construct and return an array of `imageNodes` instead of using a new class for each node. This shows that classes aren't a necessity for Famous; using them is up to our discretion as developers.
+
+If you save the `Pager.js` file and refresh your browser, you'll find that all of your images will be stacked on top of each other in the center of the screen.
+
+## Finding the width
+
+Similar to our `Dots`, let's get the width using an `onSizeChange` method on a resize component for the `Pager`. This value will come into play later when we want to position our `imageNodes` off the screen.
+
+    var resizeComponent = {
+        onSizeChange: function(size) {
+            this.defineWidth(size)
+        }.bind(this)
+    };
+    this.node.addComponent(resizeComponent);
+
+Add the lines above inside the `Pager` constructor. Refer back to the previous steps if you need a refresher on the `onSizeChange` method.
+
+
 
 <div class="sidenote--other">
-<p><strong>Modified files:</strong> <a href="https://github.famo.us/learn/lesson-carousel-starter-kit/blob/step3/AddingComponents/src/carousel/Carousel.js">Carousel.js</a></p>
-</div>
-
-## Positioning children
-
-Now that all of the child elements are set up and decorated with rendering components, we can position them.
-
-For code reuse purposes, we'll put the positioning code into an external function called `_positionComponents()`. Also note the `_` (underscore) prefix, which we recommend to denote functions that are private to a module.
-
-Copy and paste the following code snippet just below your `Carousel` constructor, and uncomment the constructor's call to `_positionComponents()`.
-
-    /**
-     * Carousel.js (as of step 4)
-     * [complete file not shown]
-     */
-
-    // Place this snippet directly below the `Carousel`
-    // constructor function.
-
-    function _positionComponents() {
-        
-        this.arrows.back.size.setMode(1,1)
-        this.arrows.back.size.setAbsolute(40, 40);
-        this.arrows.back.position.set(40, 0, 0);
-        this.arrows.back.align.set(0, .5, 0);
-        this.arrows.back.mountPoint.set(0, .5, 0);
-        
-        this.arrows.next.size.setMode(1,1)
-        this.arrows.next.size.setAbsolute(40, 40);
-        this.arrows.next.position.set(-40, 0, 0);
-        this.arrows.next.align.set(1, .5, 0);
-        this.arrows.next.mountPoint.set(1, .5, 0);
-        
-        this.dots.size.setMode(1,1)
-        this.dots.size.setAbsolute(null, 20, 0);
-        this.dots.position.set(0, -50, 0);
-        this.dots.align.set(.5, 1, 0);
-        this.dots.mountPoint.set(.5, 1, 0);
-        
-        this.pager.align.set(.5, .5, 0);
-        this.pager.mountPoint.set(.5, .5, 0);
-    }
-
-    
-    // Don't forget to uncomment the call to this function
-    // inside your Carousel class!
-    //
-    //  /* _positionComponents.call(this); */
-    //
-    // If not called, the elements won't get positioned. 
-
-Here, we reference the components through the storage objects we created in the previous steps. With this function, our nodes are sized and positioned. However, before any content will be visible, we will need to define child classes for the child elements `Pager`, `Arrow`, and `Dots`.
-
-<div class="sidenote--other">
-<p><strong>Modified files:</strong> <a href="https://github.famo.us/learn/lesson-carousel-starter-kit/blob/step4/PositioningChildren/src/carousel/Carousel.js">Carousel.js</a></p>
+<p><strong>Modified files:</strong> <a href="https://github.com/famous/lesson-carousel-starter-kit/blob/step7/AddPager/src/carousel/Pager.js">Pager.js</a> | <a href="https://github.com/famous/lesson-carousel-starter-kit/blob/step7/AddPager/src/carousel/Carousel.js">Carousel.js</a></p>
 </div>
 
 <div class="sidenote">
-<p><strong>Section recap:</strong> <a href="https://github.famo.us/learn/lesson-carousel-starter-kit/tree/step4/PositioningChildren">Code for this step</a></p>
+<p><strong>Section recap:</strong> <a href="https://github.com/famous/lesson-carousel-starter-kit/tree/step7/AddPager">Code for this step</a></p>
 </div>
-
-<span class="cta">
-[Up next: Organizing code &raquo;](http://learn-staging.famo.us/lessons/carousel/OrganizingCode.html)
-</span>
-=================
-All rights reserved. Famous Industries 2015
