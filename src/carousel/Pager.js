@@ -1,5 +1,6 @@
 var DOMElement = require('famous/dom-renderables/DOMElement');
 var PhysicsEngine = require('famous/physics/PhysicsEngine'); // To use later...
+var FamousEngine = require('famous/core/FamousEngine');
 
 function Pager (node, options) {
     this.node = node;
@@ -14,10 +15,26 @@ function Pager (node, options) {
         }.bind(this)
     };
     this.node.addComponent(resizeComponent);
+
+    // Add a physics simulation and update this instance
+    // using regular time updates from the clock.
+    this.simulation = new PhysicsEngine();
+
+    // .requestUpdate will call the .onUpdate method next frame, passing in the time stamp for that frame
+    FamousEngine.requestUpdate(this);
 }
 
 Pager.prototype.defineWidth = function(size){
   this.pageWidth = size[0];
+}
+
+Pager.prototype.onUpdate = function(time) {
+    this.simulation.update(time)
+    // we will fill this out later
+    // ...
+
+    // by queueing up our .onUpdate, we can be sure this will be called every frame
+    FamousEngine.requestUpdateOnNextTick(this);
 }
 
 function _createPages(root, pageData) {
