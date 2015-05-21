@@ -179,7 +179,3 @@ Now our `imageNodes` are linked to boxes in the physics simulation. However, we 
 <div class="sidenote">
 <p><strong>Section recap:</strong> <a href="https://github.com/famous/lesson-carousel-starter-kit/tree/step7-AddPhysics">Code for this step</a></p>
 </div>
-
-<span class="cta">
-[Up next: User interaction &raquo;](./UserInteraction.html)
-</span>
