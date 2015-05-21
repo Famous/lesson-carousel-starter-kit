@@ -1,8 +1,3 @@
----
-layout: default
-title: User Interaction
----
-
 <span class="intro-graf">
 We've nearly got a working carousel, but we're still missing one important thing: user interaction. In Famous, we can accept and handle input by listening to traditional DOM events.
 </span>
