@@ -1,11 +1,10 @@
-var FamousPlatform = require('famous');
-var Famous = FamousPlatform.core.Famous;
-var DOMElement = FamousPlatform.domRenderables.DOMElement;
+var FamousEngine = require('famous/core/FamousEngine');
+var DOMElement = require('famous/dom-renderables/DOMElement');
 
 function Carousel(selector, data) {
-    // Create a Context instance. Contexts are
+    // Create a new Scene instance. Scenes are
     // the starting point for all Famous apps.
-    this.context = Famous.createContext(selector);
+    this.context = FamousEngine.createScene(selector);
 
     // Add the first scene graph node to the
     // context. This is the 'root' node.
