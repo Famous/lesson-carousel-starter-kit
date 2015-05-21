@@ -1,17 +1,7 @@
-##Carousel Lesson Starter Kit  -  Step 1: "Hello Famous!"
-
-Screen shot at current step:
-
-![screenshot](./Screenshot.png)
-
-## Check out the Full Lesson Here:
-[http://learn-staging.famo.us/lessons/carousel/HelloFamous.html](http://learn-staging.famo.us/lessons/carousel/HelloFamous.html)
-
-=================
-
-_Excerpt from Step 1: Hello Famous!_
-
-##Hello Famous!
+---
+layout: default
+title: Hello Famous!
+---
 
 <span class="intro-graf">
 Before we begin creating the carousel itself, let's display a basic "Hello World" message, just to establish the foundations for our application.
@@ -21,30 +11,19 @@ Throughout the app, we'll use the JavaScript "class" pattern to organize our cod
 
 ## A basic structure
 
-Copy and paste the code snippets below into the files `main.js` and `Carousel.js` (respectively), which are included in the [carousel starter kit](https://github.famo.us/learn/lesson-carousel-starter-kit) that you downloaded in the [getting started section](http://learn-staging.famo.us/lessons/carousel/GettingStarted.html).
+Copy and paste the code snippets below into the files `carousel/Carousel.js`.
 
     /**
-     * main.js
+     * carousel/Carousel.js
      */
 
-    var Carousel = require('./Carousel');
-    var data = require('../data/ImageData');
-    var carousel = new Carousel('body', { pageData: data });
-
-<!-- -->
-
-    /**
-     * Carousel.js
-     */
-
-    var FamousPlatform = require('famous');
-    var Famous = FamousPlatform.core.Famous;
-    var DOMElement = FamousPlatform.domRenderables.DOMElement;
+    var FamousEngine = require('famous/core/FamousEngine');
+    var DOMElement = require('famous/dom-renderables/DOMElement');
 
     function Carousel(selector, data) {
-        // Create a Context instance. Contexts are
+        // Create a new Scene instance. Scenes are
         // the starting point for all Famous apps.
-        this.context = Famous.createContext(selector);
+        this.context = FamousEngine.createScene(selector);
 
         // Add the first scene graph node to the
         // context. This is the 'root' node.
@@ -64,9 +43,9 @@ Copy and paste the code snippets below into the files `main.js` and `Carousel.js
 
 ## Explanation
 
-In the code above, note how the carousel constructor calls `.createContext()` on the `Famous` component and passes it a _CSS selector_ for the specific DOM element (in this case, the `'body'`) that we want to mount our app to.
+In the code above, note how the carousel constructor calls `.createScene()` on the `Famous` component and passes it a _CSS selector_ for the specific DOM element (in this case, the `'body'`) that we want to mount our app to.
 
-The context object (returned from `.createContext`) forms the base of the Famous [scene graph](#) and handles attaching our app to the DOM. Adding child nodes to the context -- extending the scene graph -- is the process by which we add visual elements to our app.
+The scene object (returned from `.createScene`) forms the base of the Famous scene graph and handles attaching our app to the DOM. Adding child nodes to the scene -- extending the scene graph -- is the process by which we add visual elements to our app.
 
 Pay attention to how the _root_ scene graph node gets passed as an argument to the HTMLElement component's constructor. This is how we _decorate_ our scene graph nodes with visual components.
 
@@ -75,17 +54,9 @@ Pay attention to how the _root_ scene graph node gets passed as an argument to t
 Now that we understand how to put together a basic Famous scene, let's move on to architecting our more-complex carousel app.
 
 <div class="sidenote--other">
-<p><strong>Modified files:</strong> <a href="https://github.famo.us/learn/lesson-carousel-starter-kit/blob/step1/HelloFamous/src/carousel/main.js">main.js</a> | <a href="https://github.famo.us/learn/lesson-carousel-starter-kit/blob/step1/HelloFamous/src/carousel/Carousel.js">Carousel.js</a></p>
+<p><strong>Modified files:</strong> <a href="https://github.com/famous/lesson-carousel-starter-kit/blob/step1-HelloFamous/src/carousel/Carousel.js">carousel/Carousel.js</a></p>
 </div>
 
 <div class="sidenote">
-<p><strong>Section recap:</strong> <a href="https://github.famo.us/learn/lesson-carousel-starter-kit/tree/step1/HelloFamous">Code for this step</a></p>
+<p><strong>Section recap:</strong> <a href="https://github.com/famous/lesson-carousel-starter-kit/tree/step1-HelloFamous">Code for this step</a></p>
 </div>
-
-<span class="cta">
-[Up next: Architecture &raquo;](http://learn-staging.famo.us/lessons/carousel/Architecture.html)
-</span>
-
-
-=================
-All rights reserved. Famous Industries 2015
