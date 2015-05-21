@@ -91,9 +91,9 @@ Copy and paste the following code snippet just below your `Carousel` constructor
 With this function, our nodes will be sized and positioned. However, before any content will be visible, we will need to flesh out the classes for the child elements `Pager`, `Arrow`, and `Dots`.
 
 <div class="sidenote--other">
-<p><strong>Modified files:</strong> <a href="https://github.com/famous/lesson-carousel-starter-kit/blob/step4-PositioningChildren/src/carousel/Carousel.js">Carousel.js</a></p>
+<p><strong>Modified files:</strong> <a href="https://github.com/famous/lesson-carousel-starter-kit/blob/step3-PositioningChildren/src/carousel/Carousel.js">Carousel.js</a></p>
 </div>
 
 <div class="sidenote">
-<p><strong>Section recap:</strong> <a href="https://github.com/famous/lesson-carousel-starter-kit/tree/step4-PositioningChildren">Code for this step</a></p>
+<p><strong>Section recap:</strong> <a href="https://github.com/famous/lesson-carousel-starter-kit/tree/step3-PositioningChildren">Code for this step</a></p>
 </div>
