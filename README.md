@@ -1,8 +1,3 @@
----
-layout: default
-title: Hello Famous!
----
-
 <span class="intro-graf">
 Before we begin creating the carousel itself, let's display a basic "Hello World" message, just to establish the foundations for our application.
 </span>
