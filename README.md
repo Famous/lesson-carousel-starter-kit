@@ -1,8 +1,3 @@
----
-layout: default
-title: Dots
----
-
 <span class="intro-graf">
 Now let's introduce another element to the application --- the `Dots` module --- which is used to indicate the total number of slides, and give context by highlighting the dot that represents the currently active slide.
 </span>
