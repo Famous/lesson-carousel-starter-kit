@@ -1,8 +1,3 @@
----
-layout: default
-title: Animating with Physics
----
-
 <span class="intro-graf">
 Famous' built-in physics engine allows us to add realistic motion to our application and animate our carousel.
 </span>
