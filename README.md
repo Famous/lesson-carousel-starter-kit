@@ -1,8 +1,3 @@
----
-layout: default
-title: Pager
----
-
 <span class="intro-graf">
 The `Pager` is the element that holds the display images. Architecturally, it will also hold most of the carousel's browsing logic.
 </span>
