@@ -1,26 +1,24 @@
-var FamousPlatform = require('famous');
-var Famous = FamousPlatform.core.Famous;
-var DOMElement = FamousPlatform.domRenderables.DOMElement;
+var FamousEngine = require('famous/core/FamousEngine');
+var DOMElement = require('famous/dom-renderables/DOMElement');
 
 function Carousel(selector, data) {
-    this.context = Famous.createContext(selector);
+    this.context = FamousEngine.createScene(selector);
     this.root = this.context.addChild();
 
     // Keep reference to the page data, which is
     // the images we'll display in our carousel
     this.pageData = data.pageData;
 
-    this.arrows = {};
-    var backArrowNode = this.root.addChild();
-    var nextArrowNode = this.root.addChild();
+    this.arrows = {
+        back: new Arrow(this.root.addChild(), { direction: -1 }),
+        next: new Arrow(this.root.addChild(), { direction: 1 })
+    };
 
-    this.pager = {};
-    var pagerNode = this.root.addChild();
+    this.pager = new Pager(this.root.addChild(), { pageData: this.pageData });
 
-    this.dots = {};
-    var dotsNode = this.root.addChild();
+    this.dots = new Dots(this.root.addChild(), { numPages: this.pageData.length });
 
-    
+
 }
 
 module.exports = Carousel;
