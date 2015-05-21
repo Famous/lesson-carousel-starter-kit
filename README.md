@@ -1,219 +1,124 @@
-##Carousel Lesson Starter Kit - Step 2: Adding Child Nodes
-
-##Check out the Full Lesson Here:
-[http://learn-staging.famo.us/lessons/carousel/Layout.html](http://learn-staging.famo.us/lessons/carousel/Layout.html)
-
-=================
-
-_Excerpt from Step 2: Adding Child Nodes_
-
-## Layout
+---
+layout: default
+title: Dots
+---
 
 <span class="intro-graf">
-Let's look at how to organize and position elements in Famous in order to create a layout for our application.
+Now let's introduce another element to the application --- the `Dots` module --- which is used to indicate the total number of slides, and give context by highlighting the dot that represents the currently active slide.
 </span>
 
-We'll use the parent class, `Carousel`, to initialize the sub-elements of the app. You can follow along in the [Carousel.js](https://github.famo.us/learn/lesson-carousel-starter-kit/blob/step1/HelloFamous/src/carousel/Carousel.js) file.
+If you haven't yet, create the file `Dots.js`, and copy-and-paste the code below into it. Read through all of the inline comments to understand how the dots area is constructed.
 
-<span class="art-insert">
-![AddingAreas](http://learn-staging.famo.us/lessons/carousel/assets/images/appareas.png)
-</span>
+    var DOMElement = require('famous/dom-renderables/DOMElement');
 
-The diagram above illustrates where within the screen each of the elements will reside. We can establish these element areas by adding [scene graph nodes](#) to the root node, and then styling them with [components](#).
+    function Dots(node, options) {
+        this.node = node;
+       // Storage for all the children -- the 'dot' nodes
+        this.dots = [];
 
-## Adding child elements
+        // Size and positioning for the individual dots
+        this.dotWidth = options.dotWidth || 10;
+        this.spacing = options.spacing || 5;
 
-Since all elements in Famous are represented by [scene graph nodes](#), we need to add new nodes in order to establish new elements. To add a child node, simply call `.addChild()` on the scene graph node you wish to extend. (The returned object will be a new node that you can add even more children to, and so on.)
+        // Determine how many children to add, and add them
+        this.numPages = options.numPages;
+        for (var i = 0; i < this.numPages; i++) {
+            // Create new child node for each dot
+            var dotNode = node.addChild();
 
-Because we need to create four elements --- two `Arrow` elements, a `Dots` element, and a `Pager` element, we will need to call `.addChild()` four times on our root node `this.root`. In addition to our nodes, we'll also create empty _storage_ objects to hold the sub-elements' components of these child instances.
+            // Size the child
+            dotNode.setSizeMode(1,1)
+            dotNode.setAbsoluteSize(this.dotWidth, this.dotWidth)
 
-    /**
-     * Carousel.js (as of step 2)
-     */
+            // Store child nodes in the dots array
+            this.dots.push(new Dot(dotNode, i));
+        }
 
-    var FamousPlatform = require('famous');
-    var Famous = FamousPlatform.core.Famous;
-    var DOMElement = FamousPlatform.domRenderables.DOMElement;
-
-    function Carousel(selector, data) {
-        this.context = Famous.createContext(selector);
-        this.root = this.context.addChild();
-
-        // Keep reference to the page data, which is
-        // the images we'll display in our carousel
-        this.pageData = data.pageData;
-
-        this.arrows = {};
-        var backArrowNode = this.root.addChild();
-        var nextArrowNode = this.root.addChild();
-
-        this.pager = {};
-        var pagerNode = this.root.addChild();
-
-        this.dots = {};
-        var dotsNode = this.root.addChild();
-
-        
-    }
-
-    module.exports = Carousel;
-
-<div class="sidenote">
-<p><strong>Modified files:</strong> <a href="hhttps://github.famo.us/learn/lesson-carousel-starter-kit/blob/step2/AddingChildNodes/src/carousel/Carousel.js">Carousel.js</a></p>
-</div>
-
-## Attaching components
-
-We recommend sizing, positioning, and styling elements from the parent element --- an approach we call _top-down_. Being consistent about where your app's positioning and sizing control comes from will give you a great advantage as it grows in complexity.
-
-Following this convention, we will add `Size`, `Position`, `Align`, and `MountPoint` components to the _storage_ objects we created within `Carousel` in the previous step. (Below, note the commented out lines and make sure to include them in your code; these will come into play later when we create our classes.)
-    
-    /**
-     * Carousel.js (as of step 3)
-     */
-
-    var FamousPlatform = require('famous');
-    var Famous = FamousPlatform.core.Famous;
-    var DOMElement = FamousPlatform.domRenderables.DOMElement;
-    var Size = FamousPlatform.components.Size;
-    var Position = FamousPlatform.components.Position;
-    var Align = FamousPlatform.components.Align;
-    var MountPoint = FamousPlatform.components.MountPoint;
-
-    // We'll uncommment these lines once we've built out
-    // the individual element classes.
-    //
-    // var Arrow = require('./Arrow.js');
-    // var Pager = require('./Pager.js');
-    // var Dots = require('./Dots.js');
-
-
-    function Carousel(selector, data) {
-        this.context = Famous.createContext(selector);
-        this.root = this.context.addChild();
-        this.pageData = data.pageData;
-        
-        // Note the commented-out lines below, which we will
-        // uncomment once we've built out the implementations.
-
-        this.arrows = {};
-        var backArrowNode = this.root.addChild();
-        this.arrows.back = {
-            node: backArrowNode,
-            //childInstance: new Arrow(backArrowNode, { direction: -1}),
-            size: new Size(backArrowNode),
-            position: new Position(backArrowNode),
-            align: new Align(backArrowNode),
-            mountPoint: new MountPoint(backArrowNode)
-        };
-
-        var nextArrowNode = this.root.addChild();
-        this.arrows.next = {
-            node: nextArrowNode,
-            //childInstance: new Arrow(nextArrowNode, { direction: 1}),
-            size: new Size(nextArrowNode),
-            position: new Position(nextArrowNode),
-            align: new Align(nextArrowNode),
-            mountPoint: new MountPoint(nextArrowNode)
-        };
-     
-        this.pager = {};
-        var pagerNode = this.root.addChild();
-        this.pager = {
-            node: pagerNode,
-            //childInstance: new Pager(pagerNode, { pageData: this.pageData }),
-            size: new Size(pagerNode),
-            position: new Position(pagerNode),
-            align: new Align(pagerNode),
-            mountPoint: new MountPoint(pagerNode)
-        };
-
-        this.dots = {};
-        var dotsNode = this.root.addChild();
-        this.dots = {
-            node: dotsNode,
-            //childInstance: new Dots(dotsNode, { numPages: this.pageData.length }),
-            size: new Size(dotsNode),
-            position: new Position(dotsNode),
-            align: new Align(dotsNode),
-            mountPoint: new MountPoint(dotsNode)
-        };
-
-        // We will add the implementation of this function
-        // in the section below. Once added, uncomment this.
-        //
-        //_positionComponents.call(this);
+        // Highlight the first dot in the collection
+        this.dots[0].select();
 
     }
 
-    module.exports = Carousel;
+    // Evenly space out the dots
+    Dots.prototype.layoutDots = function(size) {
+        if (size) {
+            this.size = size;
+        }
+        var totalDotSize = this.dotWidth * this.numPages + this.spacing * (this.numPages - 1);
+        var start = (this.size[0] - totalDotSize) / 2;
+        for (var i = 0; i < this.numPages; i++) {
+            this.dots[i].node.setPosition(start + (this.dotWidth + this.spacing) * i, 0, 0);
+        }
+    }
 
-Notice how we pass a scene graph node to each component's constructor, and then store these instances in the storage objects for use later.
+    // Updating the selected dots on change of current page.
+    Dots.prototype.pageChange = function(oldIndex, newIndex) {
+        this.dots[oldIndex].dot.deselect();
+        this.dots[newIndex].dot.select();
+    }
 
-<div class="sidenote--other">
-<p><strong>Modified files:</strong> <a href="https://github.famo.us/learn/lesson-carousel-starter-kit/blob/step3/AddingComponents/src/carousel/Carousel.js">Carousel.js</a></p>
-</div>
 
-## Positioning children
 
-Now that all of the child elements are set up and decorated with rendering components, we can position them.
+    module.exports = Dots;
 
-For code reuse purposes, we'll put the positioning code into an external function called `_positionComponents()`. Also note the `_` (underscore) prefix, which we recommend to denote functions that are private to a module.
+## Dot class
 
-Copy and paste the following code snippet just below your `Carousel` constructor, and uncomment the constructor's call to `_positionComponents()`.
+We'll also introduce a class `Dot` that will encapsulate an individual dot among the dots collection. You can think of a `Dot` as a _grandchild_ of `Carousel`, carrying the visible element for each dot.
 
     /**
-     * Carousel.js (as of step 4)
+     * Dots.js
      * [complete file not shown]
      */
 
-    // Place this snippet directly below the `Carousel`
-    // constructor function.
-
-    function _positionComponents() {
-        
-        this.arrows.back.size.setMode(1,1)
-        this.arrows.back.size.setAbsolute(40, 40);
-        this.arrows.back.position.set(40, 0, 0);
-        this.arrows.back.align.set(0, .5, 0);
-        this.arrows.back.mountPoint.set(0, .5, 0);
-        
-        this.arrows.next.size.setMode(1,1)
-        this.arrows.next.size.setAbsolute(40, 40);
-        this.arrows.next.position.set(-40, 0, 0);
-        this.arrows.next.align.set(1, .5, 0);
-        this.arrows.next.mountPoint.set(1, .5, 0);
-        
-        this.dots.size.setMode(1,1)
-        this.dots.size.setAbsolute(null, 20, 0);
-        this.dots.position.set(0, -50, 0);
-        this.dots.align.set(.5, 1, 0);
-        this.dots.mountPoint.set(.5, 1, 0);
-        
-        this.pager.align.set(.5, .5, 0);
-        this.pager.mountPoint.set(.5, .5, 0);
+    function Dot(node, options) {
+        this.node = node;
+        this.el = new DOMElement(node);
+        this.el.setProperty('borderRadius', '5px');
+        this.el.setProperty('border', '2px solid white');
+        this.el.setProperty('boxSizing', 'border-box');
     }
 
-    
-    // Don't forget to uncomment the call to this function
-    // inside your Carousel class!
-    //
-    //  /* _positionComponents.call(this); */
-    //
-    // If not called, the elements won't get positioned. 
+    Dot.prototype.select = function() {
+        this.el.setProperty('backgroundColor', 'white');
+    };
 
-Here, we reference the components through the storage objects we created in the previous steps. With this function, our nodes are sized and positioned. However, before any content will be visible, we will need to define child classes for the child elements `Pager`, `Arrow`, and `Dots`.
+    Dot.prototype.deselect = function() {
+        this.el.setProperty('backgroundColor', 'transparent');
+    };
+
+
+
+To get your dots on the screen, open up `Carousel.js`, uncomment out all references to the `Dots` class in that file, and then refresh your browser.
 
 <div class="sidenote--other">
-<p><strong>Modified files:</strong> <a href="https://github.famo.us/learn/lesson-carousel-starter-kit/blob/step4/PositioningChildren/src/carousel/Carousel.js">Carousel.js</a></p>
+<p><strong>Modified files:</strong> <a href="https://github.com/famous/lesson-carousel-starter-kit/blob/step5-AddDotsClass/src/carousel/Dots.js">Dots.js</a> | <a href="https://github.com/famous/lesson-carousel-starter-kit/blob/step5-AddDotsClass/src/carousel/Carousel.js">Carousel.js</a></p>
 </div>
+
+
+## Positioning the Dots
+
+We will need to pass the scene size to the `.layoutDots()` method to get the dots evenly distributed across the screen. Instead of pinging the DOM for the width, we'll grab the size by registering an `onSizeChange` method within a resize component.
+
+Add the code below to the `Dots` constructor.
+
+    //add a component to keep dot layout updated
+    var resizeComponent = {
+        onSizeChange: function(size) {
+            //this will layout the dots whenever a resize occurs
+            this.layoutDots(size)
+            //size === [parent size, 20, parent size]
+        }.bind(this)
+    };
+    this.node.addComponent(resizeComponent);
+
+
+<div class="sidenote--other">
+<p><strong>Modified files:</strong> <a href="https://github.com/famous/lesson-carousel-starter-kit/blob/step5-AddDotsClass/src/carousel/Carousel.js">Carousel.js</a></p>
+</div>
+
+
+Now, whenever the node is resized, the method above will fire with the new size passed in. You can register an `onSizeChange` method with any component to get the current `[x,y,z]` size of a node. If a node doesn't have a size in a particular direction it will return the size of its parent.
 
 <div class="sidenote">
-<p><strong>Section recap:</strong> <a href="https://github.famo.us/learn/lesson-carousel-starter-kit/tree/step4/PositioningChildren">Code for this step</a></p>
+<p><strong>Section recap:</strong> <a href="https://github.com/famous/lesson-carousel-starter-kit/tree/step5-AddDotsClass">Code for this step</a></p>
 </div>
-
-<span class="cta">
-[Up next: Organizing code &raquo;](http://learn-staging.famo.us/lessons/carousel/OrganizingCode.html)
-</span>
-=================
-All rights reserved. Famous Industries 2015
