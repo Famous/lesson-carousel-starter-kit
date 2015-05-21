@@ -15,7 +15,6 @@ Project files are found in:
 
     ./src/carousel
 
-![screenshot](./Screenshot.png)
 
 The _index.html_ file is found in:
 
