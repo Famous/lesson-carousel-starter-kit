@@ -108,7 +108,7 @@ Add the code below to the `Dots` constructor.
 
 
 <div class="sidenote--other">
-<p><strong>Modified files:</strong> <a href="https://github.com/famous/lesson-carousel-starter-kit/blob/step5-AddDotsClass/src/carousel/Carousel.js">Carousel.js</a></p>
+<p><strong>Modified files:</strong> <a href="https://github.com/famous/lesson-carousel-starter-kit/blob/step5-AddDotsClass/src/carousel/Dots.js">Dots.js</a></p>
 </div>
 
 
