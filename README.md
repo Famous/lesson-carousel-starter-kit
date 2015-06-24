@@ -6,7 +6,7 @@ http://famous.org/learn/Carousel/index.html
 After cloning the repo:
 
     npm install
-    npm run start-dev
+    npm run dev
 
 Project files are found in:
 
