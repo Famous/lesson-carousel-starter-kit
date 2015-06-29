@@ -1,9 +1,10 @@
 var DOMElement = require('famous/dom-renderables/DOMElement');
-var GestureHandler = require('famous/components/GestureHandler');
+var Node = require('famous/core/Node');
 
-function Arrow(node, options) {
-  this.node = node;
-  this.el = new DOMElement(node);
+function Arrow(options) {
+  Node.call(this);
+
+  this.el = new DOMElement(this);
   this.el.setProperty('color', 'white')
   this.direction = options.direction;
   this.el.setContent(this.direction === 1 ? '>' : '<');
@@ -13,12 +14,11 @@ function Arrow(node, options) {
   this.el.setProperty('textHighlight', 'none');
   this.el.setProperty('zIndex', '2');
 
-  var emitPageChange = function() {
-      this.node.emit('pageChange', {direction: this.direction});
-  }.bind(this)
-
-  this.gestures = new GestureHandler(node);
-  this.gestures.on('tap', emitPageChange);
+  // Listen to the click event
+  this.addUIEvent('click');
 }
+
+Arrow.prototype = Object.create(Node.prototype);
+Arrow.prototype.constructor = Arrow;
 
 module.exports = Arrow;

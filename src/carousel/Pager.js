@@ -1,7 +1,6 @@
 var DOMElement = require('famous/dom-renderables/DOMElement');
 var PhysicsEngine = require('famous/physics/PhysicsEngine');
 var FamousEngine = require('famous/core/FamousEngine');
-var GestureHandler = require('famous/components/GestureHandler');
 
 var physics = require('famous/physics');
 var math = require('famous/math');
@@ -19,8 +18,8 @@ function Pager (node, options) {
     this.pageWidth = 0;
 
     var resizeComponent = {
-        onSizeChange: function(size) {
-            this.defineWidth(size)
+        onSizeChange: function(x, y, z) {
+            this.defineWidth(x);
         }.bind(this)
     };
     this.node.addComponent(resizeComponent);
@@ -38,8 +37,8 @@ function Pager (node, options) {
     this.pages = _createPages.call(this, node, options.pageData);
 }
 
-Pager.prototype.defineWidth = function(size){
-  this.pageWidth = size[0];
+Pager.prototype.defineWidth = function(width){
+  this.pageWidth = width;
 };
 
 Pager.prototype.onUpdate = function(time) {
@@ -93,29 +92,6 @@ function _createPages(root, pageData) {
         imageNode.setAlign(0.5, 0.5);
         imageNode.setMountPoint(0.5, 0.5);
         imageNode.setOrigin(0.5, 0.5);
-
-        var gestureHandler = new GestureHandler(imageNode);
-            gestureHandler.on('drag', function(index, e) {
-                    this.force.set(e.centerDelta.x, 0, 0); // Add a force equal to change in X direction
-                    this.force.scale(20); // Scale the force up
-                    this.pages[index].box.applyForce(this.force); // Apply the force to the `Box` body
-
-                    if (e.centerVelocity.x > this.threshold) {
-                        if (this.draggedIndex === index && this.currentIndex === index) {
-                            // Move index to left
-                            this.node.emit('pageChange', {direction: -1, amount: 1});
-                        }
-                    }
-                    else if (e.centerVelocity.x < -this.threshold){
-                        if (this.draggedIndex === index && this.currentIndex === index) {
-                            this.node.emit('pageChange', {direction: 1,  amount:1});
-                        }
-                    }
-
-                    if (e.status === 'start') {
-                        this.draggedIndex = index;
-                    }
-                }.bind(this, i));
 
         var el = new DOMElement(imageNode);
         el.setProperty('backgroundImage', 'url(' + pageData[i] + ')');

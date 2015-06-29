@@ -13,8 +13,8 @@ function Carousel(selector, data) {
     this.pageData = data.pageData;
 
     this.arrows = {
-        back: new Arrow(this.root.addChild(), { direction: -1 }),
-        next: new Arrow(this.root.addChild(), { direction: 1 })
+        back: this.root.addChild(new Arrow({ direction: -1 })),
+        next: this.root.addChild(new Arrow({ direction:  1 }))
     };
 
     this.pager = new Pager(this.root.addChild(), { pageData: this.pageData });
@@ -25,22 +25,21 @@ function Carousel(selector, data) {
 
     this.currentIndex = 0;
     _bindEvents.call(this);
-
 }
 
 function _positionComponents() {
 
-    this.arrows.back.node.setSizeMode(1,1)
-    this.arrows.back.node.setAbsoluteSize(40, 40);
-    this.arrows.back.node.setPosition(40, 0, 0);
-    this.arrows.back.node.setAlign(0, .5, 0);
-    this.arrows.back.node.setMountPoint(0, .5, 0);
+    this.arrows.back.setSizeMode(1,1)
+    this.arrows.back.setAbsoluteSize(40, 40);
+    this.arrows.back.setPosition(40, 0, 0);
+    this.arrows.back.setAlign(0, .5, 0);
+    this.arrows.back.setMountPoint(0, .5, 0);
 
-    this.arrows.next.node.setSizeMode(1,1)
-    this.arrows.next.node.setAbsoluteSize(40, 40);
-    this.arrows.next.node.setPosition(-40, 0, 0);
-    this.arrows.next.node.setAlign(1, .5, 0);
-    this.arrows.next.node.setMountPoint(1, .5, 0);
+    this.arrows.next.setSizeMode(1,1)
+    this.arrows.next.setAbsoluteSize(40, 40);
+    this.arrows.next.setPosition(-40, 0, 0);
+    this.arrows.next.setAlign(1, .5, 0);
+    this.arrows.next.setMountPoint(1, .5, 0);
 
     this.dots.node.setSizeMode(1,1)
     this.dots.node.setAbsoluteSize(null, 20);
@@ -56,9 +55,12 @@ function _bindEvents() {
     //listen for a 'pageChange' event and assign a callback
     this.root.addComponent({
         onReceive: function(e, payload) {
-            if (e === 'pageChange') {
-                var direction = payload.direction;
-                var amount = payload.amount;
+            // Verify the event as being 'click' and the appropriate 'Node'
+            var isArrowClicked = (e === 'click') &&
+                                 (payload.node.constructor === Arrow);
+            if (isArrowClicked) {
+                var direction = payload.node.direction;
+                var amount = payload.node.amount;
                 amount = amount || 1;
 
                 var oldIndex = this.currentIndex;
@@ -77,11 +79,6 @@ function _bindEvents() {
             }
         }.bind(this)
     });
-
-    window.addEventListener('keydown', function(e) {
-        if (e.keyCode === 39) this.root.emit('pageChange', {direction: 1, amount: 1});
-        if (e.keyCode === 37) this.root.emit('pageChange', {direction: -1, amount: 1});
-    }.bind(this));
 }
 
 module.exports = Carousel;
