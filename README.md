@@ -1,7 +1,10 @@
-##Carousel Lesson Starter Kit
+# Carousel Lesson Starter Kit
 
 ### Follow along with the lesson here:
 http://famous.org/learn/Carousel/index.html
+
+### Lesson READMEs can be found here:
+https://github.com/Famous/engine-guides/tree/develop/Carousel
 
 After cloning the repo:
 
@@ -10,9 +13,9 @@ After cloning the repo:
 
 Project files are found in:
 
-    ./src/carousel
+    ./src
 
-The _index.html_ file is found in:
+The `index.html` file is found in:
 
     ./public
 
