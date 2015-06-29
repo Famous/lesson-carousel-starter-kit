@@ -12,10 +12,10 @@ function Carousel(selector, data) {
     // the images we'll display in our carousel
     this.pageData = data.pageData;
 
-    this.arrows = {
-        // back: new Arrow(this.root.addChild(), { direction: -1 }),
-        // next: new Arrow(this.root.addChild(), { direction: 1 })
-    };
+    // this.arrows = {
+    //     back: this.root.addChild(new Arrow({ direction: -1 })),
+    //     next: this.root.addChild(new Arrow({ direction:  1 }))
+    // };
 
     // this.pager = new Pager(this.root.addChild(), { pageData: this.pageData });
 
@@ -26,17 +26,17 @@ function Carousel(selector, data) {
 
 function _positionComponents() {
 
-    this.arrows.back.node.setSizeMode(1,1)
-    this.arrows.back.node.setAbsoluteSize(40, 40);
-    this.arrows.back.node.setPosition(40, 0, 0);
-    this.arrows.back.node.setAlign(0, .5, 0);
-    this.arrows.back.node.setMountPoint(0, .5, 0);
+    this.arrows.back.setSizeMode(1,1)
+    this.arrows.back.setAbsoluteSize(40, 40);
+    this.arrows.back.setPosition(40, 0, 0);
+    this.arrows.back.setAlign(0, .5, 0);
+    this.arrows.back.setMountPoint(0, .5, 0);
 
-    this.arrows.next.node.setSizeMode(1,1)
-    this.arrows.next.node.setAbsoluteSize(40, 40);
-    this.arrows.next.node.setPosition(-40, 0, 0);
-    this.arrows.next.node.setAlign(1, .5, 0);
-    this.arrows.next.node.setMountPoint(1, .5, 0);
+    this.arrows.next.setSizeMode(1,1)
+    this.arrows.next.setAbsoluteSize(40, 40);
+    this.arrows.next.setPosition(-40, 0, 0);
+    this.arrows.next.setAlign(1, .5, 0);
+    this.arrows.next.setMountPoint(1, .5, 0);
 
     this.dots.node.setSizeMode(1,1)
     this.dots.node.setAbsoluteSize(null, 20);
