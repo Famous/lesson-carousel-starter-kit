@@ -28,9 +28,9 @@ function Dots(node, options) {
 
     //add a component to keep dot layout updated
     var resizeComponent = {
-        onSizeChange: function(size) {
+        onSizeChange: function(x, y, z) {
             //this will layout the dots whenever a resize occurs
-            this.layoutDots(size)
+            this.layoutDots([x, y, z])
             //size === [parent size, 20, parent size]
         }.bind(this)
     };
@@ -51,8 +51,8 @@ Dots.prototype.layoutDots = function(size) {
 
 // Updating the selected dots on change of current page.
 Dots.prototype.pageChange = function(oldIndex, newIndex) {
-    this.dots[oldIndex].dot.deselect();
-    this.dots[newIndex].dot.select();
+    this.dots[oldIndex].deselect();
+    this.dots[newIndex].select();
 }
 
 function Dot(node, options) {

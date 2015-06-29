@@ -1,5 +1,5 @@
 var DOMElement = require('famous/dom-renderables/DOMElement');
-var PhysicsEngine = require('famous/physics/PhysicsEngine'); // To use later...
+var PhysicsEngine = require('famous/physics/PhysicsEngine');
 var FamousEngine = require('famous/core/FamousEngine');
 
 var physics = require('famous/physics');
@@ -18,8 +18,8 @@ function Pager (node, options) {
     this.pageWidth = 0;
 
     var resizeComponent = {
-        onSizeChange: function(size) {
-            this.defineWidth(size)
+        onSizeChange: function(x, y, z) {
+            this.defineWidth(x);
         }.bind(this)
     };
     this.node.addComponent(resizeComponent);
@@ -31,12 +31,15 @@ function Pager (node, options) {
     // .requestUpdate will call the .onUpdate method next frame, passing in the time stamp for that frame
     FamousEngine.requestUpdate(this);
 
+    this.threshold = 4000;
+    this.force = new Vec3();
+
     this.pages = _createPages.call(this, node, options.pageData);
 }
 
-Pager.prototype.defineWidth = function(size){
-  this.pageWidth = size[0];
-}
+Pager.prototype.defineWidth = function(width){
+  this.pageWidth = width;
+};
 
 Pager.prototype.onUpdate = function(time) {
     this.simulation.update(time)
@@ -60,8 +63,23 @@ Pager.prototype.onUpdate = function(time) {
         page.node.setRotation(r[0], r[1], r[2], r[3]);
     }
 
-    Famous.requestUpdateOnNextTick(this);
-}
+    FamousEngine.requestUpdateOnNextTick(this);
+};
+
+Pager.prototype.pageChange = function(oldIndex, newIndex) {
+    if (oldIndex < newIndex) {
+        this.pages[oldIndex].anchor.set(-1, 0, 0);
+        this.pages[oldIndex].quaternion.fromEuler(0, Math.PI/2, 0);
+        this.pages[newIndex].anchor.set(0, 0, 0);
+        this.pages[newIndex].quaternion.set(1, 0, 0, 0);
+    } else {
+        this.pages[oldIndex].anchor.set(1, 0, 0);
+        this.pages[oldIndex].quaternion.fromEuler(0, -Math.PI/2, 0);
+        this.pages[newIndex].anchor.set(0, 0, 0);
+        this.pages[newIndex].quaternion.set(1, 0, 0, 0);
+    }
+    this.currentIndex = newIndex;
+};
 
 function _createPages(root, pageData) {
     var pages = [];
