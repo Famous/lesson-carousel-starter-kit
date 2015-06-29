@@ -9,7 +9,7 @@ https://github.com/Famous/engine-guides/tree/develop/Carousel
 After cloning the repo:
 
     npm install
-    npm run start-dev
+    npm run dev
 
 Project files are found in:
 
