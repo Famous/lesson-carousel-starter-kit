@@ -13,8 +13,8 @@ function Carousel(selector, data) {
     this.pageData = data.pageData;
 
     this.arrows = {
-        back: new Arrow(this.root.addChild(), { direction: -1 }),
-        next: new Arrow(this.root.addChild(), { direction: 1 })
+        back: this.root.addChild(new Arrow({ direction: -1 })),
+        next: this.root.addChild(new Arrow({ direction:  1 }))
     };
 
     // this.pager = new Pager(this.root.addChild(), { pageData: this.pageData });
