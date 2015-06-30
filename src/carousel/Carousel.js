@@ -52,7 +52,6 @@ function _positionComponents() {
 }
 
 function _bindEvents() {
-    //listen for a 'pageChange' event and assign a callback
     this.root.addComponent({
         onReceive: function(e, payload) {
             // Verify the event as being 'click' and the appropriate 'Node'
