@@ -14,7 +14,6 @@ var Vec3 = math.Vec3;
 function Pager (node, options) {
     this.node = node;
     this.currentIndex = 0;
-    this.threshold = 4000;
     this.pageWidth = 0;
 
     var resizeComponent = {
@@ -30,9 +29,6 @@ function Pager (node, options) {
 
     // .requestUpdate will call the .onUpdate method next frame, passing in the time stamp for that frame
     FamousEngine.requestUpdate(this);
-
-    this.threshold = 4000;
-    this.force = new Vec3();
 
     this.pages = _createPages.call(this, node, options.pageData);
 }
