@@ -6,5 +6,5 @@ FamousEngine.init();
 
 // App Code
 var Carousel = require('./carousel/Carousel');
-var imageData = require('./data/data');
+var imageData = require('./data/imageData');
 var carousel = new Carousel('body', { pageData: imageData });
