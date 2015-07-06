@@ -3,10 +3,14 @@ var DOMElement = require('famous/dom-renderables/DOMElement');
 var Arrow = require('./Arrow.js');
 var Pager = require('./Pager.js');
 var Dots = require('./Dots.js');
+var Camera = require('famous/components/Camera')
 
 function Carousel(selector, data) {
     this.context = FamousEngine.createScene(selector);
     this.root = this.context.addChild();
+    
+    //add camera for perspective
+    new Camera(this.root).setDepth(1000)
 
     // Keep reference to the page data, which is
     // the images we'll display in our carousel
