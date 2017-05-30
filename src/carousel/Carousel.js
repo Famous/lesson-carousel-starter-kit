@@ -2,7 +2,7 @@ var FamousEngine = require('famous/core/FamousEngine');
 var DOMElement = require('famous/dom-renderables/DOMElement');
 var Arrow = require('./Arrow.js');
 // var Pager = require('./Pager.js');
-// var Dots = require('./Dots.js');
+var Dots = require('./Dots.js');
 
 function Carousel(selector, data) {
     this.context = FamousEngine.createScene(selector);
@@ -19,9 +19,9 @@ function Carousel(selector, data) {
 
     // this.pager = new Pager(this.root.addChild(), { pageData: this.pageData });
 
-    // this.dots = new Dots(this.root.addChild(), { numPages: this.pageData.length });
+    this.dots = new Dots(this.root.addChild(), { numPages: this.pageData.length });
 
-    // _positionComponents.call(this);
+     _positionComponents.call(this);
 }
 
 function _positionComponents() {
@@ -44,8 +44,8 @@ function _positionComponents() {
     this.dots.node.setAlign(.5, 1, 0);
     this.dots.node.setMountPoint(.5, 1, 0);
 
-    this.pager.node.setAlign(.5, .5, 0);
-    this.pager.node.setMountPoint(.5, .5, 0);
+    //this.pager.node.setAlign(.5, .5, 0);
+    //this.pager.node.setMountPoint(.5, .5, 0);
 }
 
 module.exports = Carousel;
