@@ -21,7 +21,7 @@ function Carousel(selector, data) {
 
     // this.dots = new Dots(this.root.addChild(), { numPages: this.pageData.length });
 
-    // _positionComponents.call(this);
+      _positionComponents.call(this);
 }
 
 function _positionComponents() {
@@ -38,14 +38,14 @@ function _positionComponents() {
     this.arrows.next.setAlign(1, .5, 0);
     this.arrows.next.setMountPoint(1, .5, 0);
 
-    this.dots.node.setSizeMode(1,1)
-    this.dots.node.setAbsoluteSize(null, 20);
-    this.dots.node.setPosition(0, -50, 0);
-    this.dots.node.setAlign(.5, 1, 0);
-    this.dots.node.setMountPoint(.5, 1, 0);
+    // this.dots.node.setSizeMode(1,1)
+    // this.dots.node.setAbsoluteSize(null, 20);
+    // this.dots.node.setPosition(0, -50, 0);
+    // this.dots.node.setAlign(.5, 1, 0);
+    // this.dots.node.setMountPoint(.5, 1, 0);
 
-    this.pager.node.setAlign(.5, .5, 0);
-    this.pager.node.setMountPoint(.5, .5, 0);
+    // this.pager.node.setAlign(.5, .5, 0);
+    // this.pager.node.setMountPoint(.5, .5, 0);
 }
 
 module.exports = Carousel;
